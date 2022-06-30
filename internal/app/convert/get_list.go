@@ -1,16 +1,22 @@
 package convert
 
 import (
-	"github.com/nikitads9/note-service-api/internal/app/model"
-	desc "github.com/nikitads9/note-service-api/pkg/note_api"
+	"github.com/nikitads9/egg-service-api/internal/app/model"
+	desc "github.com/nikitads9/egg-service-api/pkg/egg_api"
 )
 
-func ToGetListResponse(notes []*model.NoteInfo) *desc.GetListResponse {
-	res := make([]*desc.GetListResponse_Result, 0, len(notes))
-	for _, elem := range notes {
+func ToGetListResponse(meals []*model.MealInfo) *desc.GetListResponse {
+	res := make([]*desc.GetListResponse_Result, 0, len(meals))
+	for _, elem := range meals {
 		res = append(res, &desc.GetListResponse_Result{
-			Title:   elem.Title,
-			Content: elem.Content,
+			Id:        elem.Id,
+			UserId:    elem.UserId,
+			Date:      elem.Date,
+			Weight:    elem.Weight,
+			Proteins:  elem.Proteins,
+			Fat:       elem.Fat,
+			Carbo:     elem.Carbo,
+			Nutrition: elem.Nutrition,
 		})
 	}
 	return &desc.GetListResponse{

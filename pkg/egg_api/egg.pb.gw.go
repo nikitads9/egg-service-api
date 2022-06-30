@@ -21,7 +21,6 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // Suppress "imported and not used" errors
@@ -32,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_EggNutrition_AddEntry_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_EggNutrition_AddMeal_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -44,12 +43,12 @@ func request_EggNutrition_AddEntry_0(ctx context.Context, marshaler runtime.Mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.AddEntry(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.AddMeal(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_EggNutrition_AddEntry_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_EggNutrition_AddMeal_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -61,16 +60,16 @@ func local_request_EggNutrition_AddEntry_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.AddEntry(ctx, &protoReq)
+	msg, err := server.AddMeal(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_EggNutrition_RemoveEntry_0 = &utilities.DoubleArray{Encoding: map[string]int{"id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_EggNutrition_RemoveMeal_0 = &utilities.DoubleArray{Encoding: map[string]int{"id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
-func request_EggNutrition_RemoveEntry_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_EggNutrition_RemoveMeal_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RemoveMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -94,16 +93,16 @@ func request_EggNutrition_RemoveEntry_0(ctx context.Context, marshaler runtime.M
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_RemoveEntry_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_RemoveMeal_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.RemoveEntry(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.RemoveMeal(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_EggNutrition_RemoveEntry_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_EggNutrition_RemoveMeal_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RemoveMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -127,20 +126,20 @@ func local_request_EggNutrition_RemoveEntry_0(ctx context.Context, marshaler run
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_RemoveEntry_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_RemoveMeal_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.RemoveEntry(ctx, &protoReq)
+	msg, err := server.RemoveMeal(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_EggNutrition_GetEntry_0 = &utilities.DoubleArray{Encoding: map[string]int{"id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_EggNutrition_GetMeal_0 = &utilities.DoubleArray{Encoding: map[string]int{"id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
-func request_EggNutrition_GetEntry_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_EggNutrition_GetMeal_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -164,16 +163,16 @@ func request_EggNutrition_GetEntry_0(ctx context.Context, marshaler runtime.Mars
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetEntry_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetMeal_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetEntry(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetMeal(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_EggNutrition_GetEntry_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_EggNutrition_GetMeal_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -197,18 +196,29 @@ func local_request_EggNutrition_GetEntry_0(ctx context.Context, marshaler runtim
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetEntry_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetMeal_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetEntry(ctx, &protoReq)
+	msg, err := server.GetMeal(ctx, &protoReq)
 	return msg, metadata, err
 
 }
+
+var (
+	filter_EggNutrition_GetList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
 
 func request_EggNutrition_GetList_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq emptypb.Empty
+	var protoReq GetListRequest
 	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetList_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
 	msg, err := client.GetList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -216,15 +226,22 @@ func request_EggNutrition_GetList_0(ctx context.Context, marshaler runtime.Marsh
 }
 
 func local_request_EggNutrition_GetList_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq emptypb.Empty
+	var protoReq GetListRequest
 	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetList_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
 	msg, err := server.GetList(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_EggNutrition_UpdateEntry_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_EggNutrition_UpdateMeal_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -236,12 +253,12 @@ func request_EggNutrition_UpdateEntry_0(ctx context.Context, marshaler runtime.M
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.UpdateEntry(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.UpdateMeal(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_EggNutrition_UpdateEntry_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_EggNutrition_UpdateMeal_0(ctx context.Context, marshaler runtime.Marshaler, server EggNutritionServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateMealRequest
 	var metadata runtime.ServerMetadata
 
@@ -253,7 +270,7 @@ func local_request_EggNutrition_UpdateEntry_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.UpdateEntry(ctx, &protoReq)
+	msg, err := server.UpdateMeal(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -264,19 +281,19 @@ func local_request_EggNutrition_UpdateEntry_0(ctx context.Context, marshaler run
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterEggNutritionHandlerFromEndpoint instead.
 func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMux, server EggNutritionServer) error {
 
-	mux.Handle("POST", pattern_EggNutrition_AddEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_EggNutrition_AddMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/AddEntry", runtime.WithHTTPPathPattern("/meal/add"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/AddMeal", runtime.WithHTTPPathPattern("/meal/add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_EggNutrition_AddEntry_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_EggNutrition_AddMeal_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -284,23 +301,23 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_EggNutrition_AddEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_AddMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_EggNutrition_RemoveEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_EggNutrition_RemoveMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/RemoveEntry", runtime.WithHTTPPathPattern("/meal/remove/{id}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/RemoveMeal", runtime.WithHTTPPathPattern("/meal/remove/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_EggNutrition_RemoveEntry_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_EggNutrition_RemoveMeal_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -308,23 +325,23 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_EggNutrition_RemoveEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_RemoveMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_EggNutrition_GetEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_EggNutrition_GetMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/GetEntry", runtime.WithHTTPPathPattern("/meal/get/{id}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/GetMeal", runtime.WithHTTPPathPattern("/meal/get/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_EggNutrition_GetEntry_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_EggNutrition_GetMeal_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -332,7 +349,7 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_EggNutrition_GetEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_GetMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -360,19 +377,19 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("PUT", pattern_EggNutrition_UpdateEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_EggNutrition_UpdateMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/UpdateEntry", runtime.WithHTTPPathPattern("/meal/update"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/UpdateMeal", runtime.WithHTTPPathPattern("/meal/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_EggNutrition_UpdateEntry_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_EggNutrition_UpdateMeal_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -380,7 +397,7 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_EggNutrition_UpdateEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_UpdateMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -425,66 +442,66 @@ func RegisterEggNutritionHandler(ctx context.Context, mux *runtime.ServeMux, con
 // "EggNutritionClient" to call the correct interceptors.
 func RegisterEggNutritionHandlerClient(ctx context.Context, mux *runtime.ServeMux, client EggNutritionClient) error {
 
-	mux.Handle("POST", pattern_EggNutrition_AddEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_EggNutrition_AddMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/AddEntry", runtime.WithHTTPPathPattern("/meal/add"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/AddMeal", runtime.WithHTTPPathPattern("/meal/add"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_EggNutrition_AddEntry_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_EggNutrition_AddMeal_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_EggNutrition_AddEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_AddMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_EggNutrition_RemoveEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_EggNutrition_RemoveMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/RemoveEntry", runtime.WithHTTPPathPattern("/meal/remove/{id}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/RemoveMeal", runtime.WithHTTPPathPattern("/meal/remove/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_EggNutrition_RemoveEntry_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_EggNutrition_RemoveMeal_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_EggNutrition_RemoveEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_RemoveMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_EggNutrition_GetEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_EggNutrition_GetMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/GetEntry", runtime.WithHTTPPathPattern("/meal/get/{id}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/GetMeal", runtime.WithHTTPPathPattern("/meal/get/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_EggNutrition_GetEntry_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_EggNutrition_GetMeal_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_EggNutrition_GetEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_GetMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -509,24 +526,24 @@ func RegisterEggNutritionHandlerClient(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("PUT", pattern_EggNutrition_UpdateEntry_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_EggNutrition_UpdateMeal_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/UpdateEntry", runtime.WithHTTPPathPattern("/meal/update"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/UpdateMeal", runtime.WithHTTPPathPattern("/meal/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_EggNutrition_UpdateEntry_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_EggNutrition_UpdateMeal_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_EggNutrition_UpdateEntry_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_EggNutrition_UpdateMeal_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -534,25 +551,25 @@ func RegisterEggNutritionHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_EggNutrition_AddEntry_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "add"}, ""))
+	pattern_EggNutrition_AddMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "add"}, ""))
 
-	pattern_EggNutrition_RemoveEntry_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"meal", "remove", "id"}, ""))
+	pattern_EggNutrition_RemoveMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"meal", "remove", "id"}, ""))
 
-	pattern_EggNutrition_GetEntry_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"meal", "get", "id"}, ""))
+	pattern_EggNutrition_GetMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"meal", "get", "id"}, ""))
 
 	pattern_EggNutrition_GetList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "get-all-meals"}, ""))
 
-	pattern_EggNutrition_UpdateEntry_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "update"}, ""))
+	pattern_EggNutrition_UpdateMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "update"}, ""))
 )
 
 var (
-	forward_EggNutrition_AddEntry_0 = runtime.ForwardResponseMessage
+	forward_EggNutrition_AddMeal_0 = runtime.ForwardResponseMessage
 
-	forward_EggNutrition_RemoveEntry_0 = runtime.ForwardResponseMessage
+	forward_EggNutrition_RemoveMeal_0 = runtime.ForwardResponseMessage
 
-	forward_EggNutrition_GetEntry_0 = runtime.ForwardResponseMessage
+	forward_EggNutrition_GetMeal_0 = runtime.ForwardResponseMessage
 
 	forward_EggNutrition_GetList_0 = runtime.ForwardResponseMessage
 
-	forward_EggNutrition_UpdateEntry_0 = runtime.ForwardResponseMessage
+	forward_EggNutrition_UpdateMeal_0 = runtime.ForwardResponseMessage
 )

@@ -1,5 +1,5 @@
 package table
 
 const (
-	NotesTable = "notes"
+	MealsTable = "meals"
 )

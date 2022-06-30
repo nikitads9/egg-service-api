@@ -1,8 +1,8 @@
-package note_v1
+package egg_v1
 
 import (
 	serv "github.com/nikitads9/egg-service-api/internal/app/service/egg"
-	desc "github.com/nikitads9/note-service-api/pkg/note_api"
+	desc "github.com/nikitads9/egg-service-api/pkg/egg_api"
 )
 
 type Implementation struct {
@@ -12,7 +12,7 @@ type Implementation struct {
 
 func NewEggNutrition(eggService *serv.Service) *Implementation {
 	return &Implementation{
-		desc.UnimplementedNoteV1Server{},
+		desc.UnimplementedEggNutritionServer{},
 		eggService,
 	}
 }

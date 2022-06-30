@@ -1,4 +1,4 @@
-module github.com/nikitads9/note-service-api
+module github.com/nikitads9/egg-service-api
 
 go 1.17
 

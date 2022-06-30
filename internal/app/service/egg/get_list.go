@@ -1,11 +1,11 @@
-package note
+package egg
 
 import (
 	"context"
 
-	"github.com/nikitads9/note-service-api/internal/app/model"
+	"github.com/nikitads9/egg-service-api/internal/app/model"
 )
 
-func (s *Service) GetList(ctx context.Context) ([]*model.NoteInfo, error) {
-	return s.noteRepository.GetList(ctx)
+func (s *Service) GetList(ctx context.Context, userId int64) ([]*model.MealInfo, error) {
+	return s.mealRepository.GetList(ctx, userId)
 }

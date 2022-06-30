@@ -1,13 +1,13 @@
-package note
+package egg
 
-import "github.com/nikitads9/note-service-api/internal/app/repository"
+import "github.com/nikitads9/egg-service-api/internal/app/repository"
 
 type Service struct {
-	noteRepository repository.INoteRepository
+	mealRepository repository.IEggNutritionRepository
 }
 
-func NewNoteService(noteRepository repository.INoteRepository) *Service {
+func NewEggNutritionService(mealRepository repository.IEggNutritionRepository) *Service {
 	return &Service{
-		noteRepository: noteRepository,
+		mealRepository: mealRepository,
 	}
 }

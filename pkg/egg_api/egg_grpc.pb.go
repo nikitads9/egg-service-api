@@ -23,11 +23,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EggNutritionClient interface {
-	AddEntry(ctx context.Context, in *AddMealRequest, opts ...grpc.CallOption) (*AddMealResponse, error)
-	RemoveEntry(ctx context.Context, in *RemoveMealRequest, opts ...grpc.CallOption) (*RemoveMealResponse, error)
-	GetEntry(ctx context.Context, in *GetMealRequest, opts ...grpc.CallOption) (*GetMealResponse, error)
-	GetList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetListResponse, error)
-	UpdateEntry(ctx context.Context, in *UpdateMealRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddMeal(ctx context.Context, in *AddMealRequest, opts ...grpc.CallOption) (*AddMealResponse, error)
+	RemoveMeal(ctx context.Context, in *RemoveMealRequest, opts ...grpc.CallOption) (*RemoveMealResponse, error)
+	GetMeal(ctx context.Context, in *GetMealRequest, opts ...grpc.CallOption) (*GetMealResponse, error)
+	GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error)
+	UpdateMeal(ctx context.Context, in *UpdateMealRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type eggNutritionClient struct {
@@ -38,34 +38,34 @@ func NewEggNutritionClient(cc grpc.ClientConnInterface) EggNutritionClient {
 	return &eggNutritionClient{cc}
 }
 
-func (c *eggNutritionClient) AddEntry(ctx context.Context, in *AddMealRequest, opts ...grpc.CallOption) (*AddMealResponse, error) {
+func (c *eggNutritionClient) AddMeal(ctx context.Context, in *AddMealRequest, opts ...grpc.CallOption) (*AddMealResponse, error) {
 	out := new(AddMealResponse)
-	err := c.cc.Invoke(ctx, "/EggNutrition/AddEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/EggNutrition/AddMeal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *eggNutritionClient) RemoveEntry(ctx context.Context, in *RemoveMealRequest, opts ...grpc.CallOption) (*RemoveMealResponse, error) {
+func (c *eggNutritionClient) RemoveMeal(ctx context.Context, in *RemoveMealRequest, opts ...grpc.CallOption) (*RemoveMealResponse, error) {
 	out := new(RemoveMealResponse)
-	err := c.cc.Invoke(ctx, "/EggNutrition/RemoveEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/EggNutrition/RemoveMeal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *eggNutritionClient) GetEntry(ctx context.Context, in *GetMealRequest, opts ...grpc.CallOption) (*GetMealResponse, error) {
+func (c *eggNutritionClient) GetMeal(ctx context.Context, in *GetMealRequest, opts ...grpc.CallOption) (*GetMealResponse, error) {
 	out := new(GetMealResponse)
-	err := c.cc.Invoke(ctx, "/EggNutrition/GetEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/EggNutrition/GetMeal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *eggNutritionClient) GetList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetListResponse, error) {
+func (c *eggNutritionClient) GetList(ctx context.Context, in *GetListRequest, opts ...grpc.CallOption) (*GetListResponse, error) {
 	out := new(GetListResponse)
 	err := c.cc.Invoke(ctx, "/EggNutrition/GetList", in, out, opts...)
 	if err != nil {
@@ -74,9 +74,9 @@ func (c *eggNutritionClient) GetList(ctx context.Context, in *emptypb.Empty, opt
 	return out, nil
 }
 
-func (c *eggNutritionClient) UpdateEntry(ctx context.Context, in *UpdateMealRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *eggNutritionClient) UpdateMeal(ctx context.Context, in *UpdateMealRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/EggNutrition/UpdateEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/EggNutrition/UpdateMeal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,11 +87,11 @@ func (c *eggNutritionClient) UpdateEntry(ctx context.Context, in *UpdateMealRequ
 // All implementations must embed UnimplementedEggNutritionServer
 // for forward compatibility
 type EggNutritionServer interface {
-	AddEntry(context.Context, *AddMealRequest) (*AddMealResponse, error)
-	RemoveEntry(context.Context, *RemoveMealRequest) (*RemoveMealResponse, error)
-	GetEntry(context.Context, *GetMealRequest) (*GetMealResponse, error)
-	GetList(context.Context, *emptypb.Empty) (*GetListResponse, error)
-	UpdateEntry(context.Context, *UpdateMealRequest) (*emptypb.Empty, error)
+	AddMeal(context.Context, *AddMealRequest) (*AddMealResponse, error)
+	RemoveMeal(context.Context, *RemoveMealRequest) (*RemoveMealResponse, error)
+	GetMeal(context.Context, *GetMealRequest) (*GetMealResponse, error)
+	GetList(context.Context, *GetListRequest) (*GetListResponse, error)
+	UpdateMeal(context.Context, *UpdateMealRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedEggNutritionServer()
 }
 
@@ -99,20 +99,20 @@ type EggNutritionServer interface {
 type UnimplementedEggNutritionServer struct {
 }
 
-func (UnimplementedEggNutritionServer) AddEntry(context.Context, *AddMealRequest) (*AddMealResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddEntry not implemented")
+func (UnimplementedEggNutritionServer) AddMeal(context.Context, *AddMealRequest) (*AddMealResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddMeal not implemented")
 }
-func (UnimplementedEggNutritionServer) RemoveEntry(context.Context, *RemoveMealRequest) (*RemoveMealResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveEntry not implemented")
+func (UnimplementedEggNutritionServer) RemoveMeal(context.Context, *RemoveMealRequest) (*RemoveMealResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveMeal not implemented")
 }
-func (UnimplementedEggNutritionServer) GetEntry(context.Context, *GetMealRequest) (*GetMealResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetEntry not implemented")
+func (UnimplementedEggNutritionServer) GetMeal(context.Context, *GetMealRequest) (*GetMealResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMeal not implemented")
 }
-func (UnimplementedEggNutritionServer) GetList(context.Context, *emptypb.Empty) (*GetListResponse, error) {
+func (UnimplementedEggNutritionServer) GetList(context.Context, *GetListRequest) (*GetListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
 }
-func (UnimplementedEggNutritionServer) UpdateEntry(context.Context, *UpdateMealRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateEntry not implemented")
+func (UnimplementedEggNutritionServer) UpdateMeal(context.Context, *UpdateMealRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMeal not implemented")
 }
 func (UnimplementedEggNutritionServer) mustEmbedUnimplementedEggNutritionServer() {}
 
@@ -127,62 +127,62 @@ func RegisterEggNutritionServer(s grpc.ServiceRegistrar, srv EggNutritionServer)
 	s.RegisterService(&EggNutrition_ServiceDesc, srv)
 }
 
-func _EggNutrition_AddEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _EggNutrition_AddMeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddMealRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EggNutritionServer).AddEntry(ctx, in)
+		return srv.(EggNutritionServer).AddMeal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/EggNutrition/AddEntry",
+		FullMethod: "/EggNutrition/AddMeal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EggNutritionServer).AddEntry(ctx, req.(*AddMealRequest))
+		return srv.(EggNutritionServer).AddMeal(ctx, req.(*AddMealRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EggNutrition_RemoveEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _EggNutrition_RemoveMeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemoveMealRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EggNutritionServer).RemoveEntry(ctx, in)
+		return srv.(EggNutritionServer).RemoveMeal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/EggNutrition/RemoveEntry",
+		FullMethod: "/EggNutrition/RemoveMeal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EggNutritionServer).RemoveEntry(ctx, req.(*RemoveMealRequest))
+		return srv.(EggNutritionServer).RemoveMeal(ctx, req.(*RemoveMealRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EggNutrition_GetEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _EggNutrition_GetMeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMealRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EggNutritionServer).GetEntry(ctx, in)
+		return srv.(EggNutritionServer).GetMeal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/EggNutrition/GetEntry",
+		FullMethod: "/EggNutrition/GetMeal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EggNutritionServer).GetEntry(ctx, req.(*GetMealRequest))
+		return srv.(EggNutritionServer).GetMeal(ctx, req.(*GetMealRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _EggNutrition_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -194,25 +194,25 @@ func _EggNutrition_GetList_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/EggNutrition/GetList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EggNutritionServer).GetList(ctx, req.(*emptypb.Empty))
+		return srv.(EggNutritionServer).GetList(ctx, req.(*GetListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EggNutrition_UpdateEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _EggNutrition_UpdateMeal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateMealRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EggNutritionServer).UpdateEntry(ctx, in)
+		return srv.(EggNutritionServer).UpdateMeal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/EggNutrition/UpdateEntry",
+		FullMethod: "/EggNutrition/UpdateMeal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EggNutritionServer).UpdateEntry(ctx, req.(*UpdateMealRequest))
+		return srv.(EggNutritionServer).UpdateMeal(ctx, req.(*UpdateMealRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -225,24 +225,24 @@ var EggNutrition_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*EggNutritionServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "AddEntry",
-			Handler:    _EggNutrition_AddEntry_Handler,
+			MethodName: "AddMeal",
+			Handler:    _EggNutrition_AddMeal_Handler,
 		},
 		{
-			MethodName: "RemoveEntry",
-			Handler:    _EggNutrition_RemoveEntry_Handler,
+			MethodName: "RemoveMeal",
+			Handler:    _EggNutrition_RemoveMeal_Handler,
 		},
 		{
-			MethodName: "GetEntry",
-			Handler:    _EggNutrition_GetEntry_Handler,
+			MethodName: "GetMeal",
+			Handler:    _EggNutrition_GetMeal_Handler,
 		},
 		{
 			MethodName: "GetList",
 			Handler:    _EggNutrition_GetList_Handler,
 		},
 		{
-			MethodName: "UpdateEntry",
-			Handler:    _EggNutrition_UpdateEntry_Handler,
+			MethodName: "UpdateMeal",
+			Handler:    _EggNutrition_UpdateMeal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

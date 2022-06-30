@@ -7,30 +7,30 @@ import "google/protobuf/empty.proto";
 import "validate/validate.proto";
 
 service EggNutrition {
-    rpc AddEntry (AddMealRequest) returns (AddMealResponse) {
+    rpc AddMeal (AddMealRequest) returns (AddMealResponse) {
         option (google.api.http) = {
             post: "/meal/add"
             body: "*"
         };
     }
     
-    rpc RemoveEntry (RemoveMealRequest) returns (RemoveMealResponse){
+    rpc RemoveMeal (RemoveMealRequest) returns (RemoveMealResponse){
         option (google.api.http) = {
             delete: "/meal/remove/{id}"
         };
     }
 
-    rpc GetEntry (GetMealRequest) returns (GetMealResponse){
+    rpc GetMeal (GetMealRequest) returns (GetMealResponse){
         option (google.api.http) = {
             get: "/meal/get/{id}"
         };
     }
-    rpc GetList (google.protobuf.Empty) returns (GetListResponse){
+    rpc GetList (GetListRequest) returns (GetListResponse){
         option (google.api.http) = {
             get: "/meal/get-all-meals"
         };
     }
-    rpc UpdateEntry (UpdateMealRequest) returns (google.protobuf.Empty){
+    rpc UpdateMeal (UpdateMealRequest) returns (google.protobuf.Empty){
         option (google.api.http) = {
             put: "/meal/update"
             body: "*"
@@ -75,6 +75,10 @@ message GetMealResponse {
     float fat = 6;
     float carbo = 7;
     float nutrition = 8;
+}
+
+message GetListRequest {
+    int64 userId = 1 [json_name = "userId", (validate.rules).int64 = {gt : 0}];
 }
 
 message GetListResponse {
