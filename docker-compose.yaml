@@ -1,0 +1,11 @@
+version: '3'
+services:
+  db:
+    image: postgres:14-alpine3.15
+    environment:
+      - "POSTGRES_DB=notes_db"
+      - "POSTGRES_PASSWORD=notes_pass"
+      - "POSTGRES_USER=postgres"
+      - "PGDATA=/var/lib/postgresql/data/notification"
+    ports:
+      - "5444:5432"

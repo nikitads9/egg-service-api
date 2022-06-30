@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+option go_package = "github.com/nikitads9/note-service-api/pkg/note_api";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
+
+service EggNutrition {
+    rpc AddEntry (AddMealRequest) returns (AddMealResponse) {
+        option (google.api.http) = {
+            post: "/meal/add"
+            body: "*"
+        };
+    }
+    
+    rpc RemoveEntry (RemoveMealRequest) returns (RemoveMealResponse){
+        option (google.api.http) = {
+            delete: "/meal/remove/{id}"
+        };
+    }
+
+    rpc GetEntry (GetMealRequest) returns (GetMealResponse){
+        option (google.api.http) = {
+            get: "/meal/get/{id}"
+        };
+    }
+    rpc GetList (google.protobuf.Empty) returns (GetListResponse){
+        option (google.api.http) = {
+            get: "/meal/get-all-meals"
+        };
+    }
+    rpc UpdateEntry (UpdateMealRequest) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            put: "/meal/update"
+            body: "*"
+        };
+    }
+}
+
+message AddMealRequest {
+    int64 userId = 1 [json_name = "userId", (validate.rules).int64 = {gt : 0}]; 
+    string date = 2 [json_name = "date", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+    float weight = 3 [json_name = "weight", (validate.rules).float = {gt : 0}]; 
+}
+
+message AddMealResponse {
+    message Result {
+        int64 id = 1;
+    }
+
+    Result result = 1;
+}
+
+message RemoveMealRequest {
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
+    int64 userId = 2 [json_name = "userId", (validate.rules).int64 = {gt : 0}];
+}
+
+message RemoveMealResponse {
+    int64 removed = 1;
+}
+
+message GetMealRequest {
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
+    int64 userId = 2 [json_name = "userId", (validate.rules).int64 = {gt : 0}];
+}
+
+message GetMealResponse {
+    int64 id = 1;
+    int64 userId = 2; 
+    string date = 3; 
+    float weight = 4; 
+    float proteins = 5;
+    float fat = 6;
+    float carbo = 7;
+    float nutrition = 8;
+}
+
+message GetListResponse {
+    message Result {
+        int64 id = 1;
+        int64 userId = 2; 
+        string date = 3; 
+        float weight = 4; 
+        float proteins = 5;
+        float fat = 6;
+        float carbo = 7;
+        float nutrition = 8;
+    }
+
+    repeated Result results = 1;
+}
+message UpdateMealRequest {
+    int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
+    int64 userId = 2 [json_name = "userId", (validate.rules).int64 = {gt : 0}];
+    string date = 3 [json_name = "date", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+    float weight = 4 [json_name = "weight", (validate.rules).float = {gt : 0}];  
+}
