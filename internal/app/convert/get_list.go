@@ -11,7 +11,7 @@ func ToGetListResponse(meals []*model.MealInfo) *desc.GetListResponse {
 		res = append(res, &desc.GetListResponse_Result{
 			Id:        elem.Id,
 			UserId:    elem.UserId,
-			Date:      elem.Date,
+			MealDate:  elem.MealDate,
 			Weight:    elem.Weight,
 			Proteins:  elem.Proteins,
 			Fat:       elem.Fat,

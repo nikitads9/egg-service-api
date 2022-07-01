@@ -5,7 +5,6 @@ import (
 
 	"github.com/nikitads9/egg-service-api/internal/app/convert"
 	desc "github.com/nikitads9/egg-service-api/pkg/egg_api"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (i *Implementation) GetList(ctx context.Context, req *desc.GetListRequest) (*desc.GetListResponse, error) {

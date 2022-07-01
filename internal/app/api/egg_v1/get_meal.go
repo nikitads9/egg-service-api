@@ -14,7 +14,7 @@ func (i *Implementation) GetMeal(ctx context.Context, req *desc.GetMealRequest) 
 	return &desc.GetMealResponse{
 		Id:        meal.Id,
 		UserId:    meal.UserId,
-		Date:      meal.Date,
+		MealDate:  meal.MealDate,
 		Weight:    meal.Weight,
 		Proteins:  meal.Proteins,
 		Fat:       meal.Fat,

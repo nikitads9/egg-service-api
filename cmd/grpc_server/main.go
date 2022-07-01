@@ -12,10 +12,10 @@ import (
 	//_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/jmoiron/sqlx"
-	"github.com/nikitads9/note-service-api/internal/app/api/note_v1"
-	"github.com/nikitads9/note-service-api/internal/app/repository"
-	"github.com/nikitads9/note-service-api/internal/app/service/note"
-	pb "github.com/nikitads9/note-service-api/pkg/note_api"
+	"github.com/nikitads9/egg-service-api/internal/app/api/egg_v1"
+	"github.com/nikitads9/egg-service-api/internal/app/repository"
+	"github.com/nikitads9/egg-service-api/internal/app/service/egg"
+	pb "github.com/nikitads9/egg-service-api/pkg/egg_api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	//_ "google.golang.org/protobuf/cmd/protoc-gen-go"
@@ -30,8 +30,8 @@ const (
 	host     = "localhost"
 	dbPort   = "5444"
 	user     = "postgres"
-	password = "notes_pass"
-	dbName   = "notes_db"
+	password = "meals_pass"
+	dbName   = "meals_db"
 	ssl      = "disable"
 )
 
@@ -69,11 +69,11 @@ func startGRPC() error {
 	}
 	defer db.Close()
 
-	noteRepository := repository.NewNoteRepository(db)
-	noteService := note.NewNoteService(noteRepository)
+	mealRepository := repository.NewEggNutritionRepository(db)
+	mealService := egg.NewEggNutritionService(mealRepository)
 
 	s := grpc.NewServer()
-	pb.RegisterNoteV1Server(s, note_v1.NewNoteV1(noteService))
+	pb.RegisterEggNutritionServer(s, egg_v1.NewEggNutrition(mealService))
 	if err = s.Serve(list); err != nil {
 		return fmt.Errorf("failed to process gRPC server %v", err.Error())
 	}
@@ -89,7 +89,7 @@ func startHTTP() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	err := pb.RegisterNoteV1HandlerFromEndpoint(ctx, mux, grpcAdress, opts)
+	err := pb.RegisterEggNutritionHandlerFromEndpoint(ctx, mux, grpcAdress, opts)
 	if err != nil {
 		return err
 	}

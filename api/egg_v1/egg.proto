@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/nikitads9/note-service-api/pkg/note_api";
+option go_package = "github.com/nikitads9/egg-service-api/pkg/egg_api";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
@@ -22,7 +22,7 @@ service EggNutrition {
 
     rpc GetMeal (GetMealRequest) returns (GetMealResponse){
         option (google.api.http) = {
-            get: "/meal/get/{id}"
+            get: "/meal/get/{userId}/{id}"
         };
     }
     rpc GetList (GetListRequest) returns (GetListResponse){
@@ -40,8 +40,7 @@ service EggNutrition {
 
 message AddMealRequest {
     int64 userId = 1 [json_name = "userId", (validate.rules).int64 = {gt : 0}]; 
-    string date = 2 [json_name = "date", (validate.rules).string = {min_len: 1, max_len: 20}]; 
-    float weight = 3 [json_name = "weight", (validate.rules).float = {gt : 0}]; 
+    float weight = 2 [json_name = "weight", (validate.rules).float = {gt : 0}]; 
 }
 
 message AddMealResponse {
@@ -69,7 +68,7 @@ message GetMealRequest {
 message GetMealResponse {
     int64 id = 1;
     int64 userId = 2; 
-    string date = 3; 
+    string mealDate = 3; 
     float weight = 4; 
     float proteins = 5;
     float fat = 6;
@@ -85,7 +84,7 @@ message GetListResponse {
     message Result {
         int64 id = 1;
         int64 userId = 2; 
-        string date = 3; 
+        string mealDate = 3; 
         float weight = 4; 
         float proteins = 5;
         float fat = 6;
@@ -98,6 +97,6 @@ message GetListResponse {
 message UpdateMealRequest {
     int64 id = 1 [json_name = "id", (validate.rules).int64 = {gt : 0}];
     int64 userId = 2 [json_name = "userId", (validate.rules).int64 = {gt : 0}];
-    string date = 3 [json_name = "date", (validate.rules).string = {min_len: 1, max_len: 20}]; 
+    string mealDate = 3 [json_name = "mealDate", (validate.rules).string = {min_len: 1, max_len: 20}]; 
     float weight = 4 [json_name = "weight", (validate.rules).float = {gt : 0}];  
 }

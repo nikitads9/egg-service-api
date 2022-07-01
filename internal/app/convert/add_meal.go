@@ -8,7 +8,6 @@ import (
 func ToMealInfo(req *desc.AddMealRequest) *model.MealInfo {
 	return &model.MealInfo{
 		UserId: req.GetUserId(),
-		Date:   req.GetDate(),
 		Weight: req.GetWeight(),
 	}
 }

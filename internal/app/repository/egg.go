@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
@@ -32,8 +33,8 @@ func NewEggNutritionRepository(db *sqlx.DB) IEggNutritionRepository {
 func (n *mealRepository) AddMeal(ctx context.Context, meal *model.MealInfo) (int64, error) {
 	builder := sq.Insert(table.MealsTable).
 		PlaceholderFormat(sq.Dollar).
-		Columns("title, content").
-		Values(meal.Title, meal.Content).
+		Columns("user_id, meal_date, weight").
+		Values(meal.UserId, time.Now().Local().Format("Mon Jan _2 15:04:05 2006"), meal.Weight).
 		Suffix("returning id")
 
 	query, args, err := builder.ToSql()
@@ -58,9 +59,11 @@ func (n *mealRepository) AddMeal(ctx context.Context, meal *model.MealInfo) (int
 }
 
 func (n *mealRepository) GetList(ctx context.Context, userId int64) ([]*model.MealInfo, error) {
-	builder := sq.Select("title, content").
+	builder := sq.Select("id, user_id, meal_date, weight").
 		PlaceholderFormat(sq.Dollar).
-		From(table.MealsTable)
+		From(table.MealsTable).
+		Where(sq.Eq{"user_id": userId}).
+		Limit(50)
 
 	query, args, err := builder.ToSql()
 	if err != nil {
@@ -78,10 +81,11 @@ func (n *mealRepository) GetList(ctx context.Context, userId int64) ([]*model.Me
 }
 
 func (n *mealRepository) GetMeal(ctx context.Context, id int64, userId int64) (*model.MealInfo, error) {
-	builder := sq.Select("id, title, content").
+	builder := sq.Select("id, user_id, meal_date, weight").
 		PlaceholderFormat(sq.Dollar).
 		From(table.MealsTable).
-		Where(sq.Eq{"id": id})
+		Where(sq.Eq{"id": id, "user_id": userId}).
+		Limit(1)
 
 	query, args, err := builder.ToSql()
 	if err != nil {
@@ -96,7 +100,7 @@ func (n *mealRepository) GetMeal(ctx context.Context, id int64, userId int64) (*
 	}
 
 	if len(res) == 0 {
-		return nil, status.Error(codes.NotFound, "ebanyi rot etogo kasino")
+		return nil, status.Error(codes.NotFound, "no entry was found")
 	}
 
 	return res[0], nil
@@ -105,7 +109,7 @@ func (n *mealRepository) GetMeal(ctx context.Context, id int64, userId int64) (*
 func (n *mealRepository) RemoveMeal(ctx context.Context, id int64, userId int64) (int64, error) {
 	builder := sq.Delete(table.MealsTable).
 		PlaceholderFormat(sq.Dollar).
-		Where(sq.Eq{"id": id}).
+		Where(sq.Eq{"id": id, "user_id": userId}).
 		Suffix("returning id")
 
 	query, args, err := builder.ToSql()
@@ -119,9 +123,11 @@ func (n *mealRepository) RemoveMeal(ctx context.Context, id int64, userId int64)
 	}
 	defer row.Close()
 
-	row.Next()
+	hasNext := row.Next()
 	var removed int64
-	err = row.Scan(&removed)
+	if hasNext {
+		err = row.Scan(&removed)
+	}
 	if err != nil {
 		return 0, err
 	}
@@ -131,9 +137,9 @@ func (n *mealRepository) RemoveMeal(ctx context.Context, id int64, userId int64)
 
 func (n *mealRepository) UpdateMeal(ctx context.Context, meal *model.MealInfo) error {
 	builder := sq.Update(table.MealsTable).
-		Set("title", meal.Title).
-		Set("content", meal.Content).
-		Where(sq.Eq{"id": meal.Id}).
+		Set("meal_date", meal.MealDate).
+		Set("weight", meal.Weight).
+		Where(sq.Eq{"id": meal.Id, "user_id": meal.UserId}).
 		PlaceholderFormat(sq.Dollar).
 		Suffix("returning id")
 

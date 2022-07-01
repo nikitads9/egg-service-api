@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: egg.proto
 
-package note_api
+package egg_api
 
 import (
 	context "context"

@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	pb "github.com/nikitads9/note-service-api/pkg/note_api"
+	pb "github.com/nikitads9/egg-service-api/pkg/egg_api"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 const grpcAdress = "localhost:50051"
@@ -21,67 +20,59 @@ func main() {
 	}
 	defer con.Close()
 
-	client := pb.NewNoteV1Client(con)
+	client := pb.NewEggNutritionClient(con)
 
-	var res *pb.AddNoteResponse
-	res, err = client.AddNote(ctx, &pb.AddNoteRequest{
-		Title:   "title1",
-		Content: "fhdshjdsgd",
+	var res *pb.AddMealResponse
+	res, err = client.AddMeal(ctx, &pb.AddMealRequest{
+		UserId: int64(127001),
+		Weight: float32(390),
 	})
 	if err != nil {
-		log.Printf("failed to add note: %v\n", err.Error())
+		log.Printf("failed to add meal: %v\n", err.Error())
 	}
 
-	fmt.Println("note with id", res.GetResult().GetId(), "added")
+	fmt.Println("meal with id", res.GetResult().GetId(), "added")
 
-	var addedID *pb.MultiAddResponse
-
-	addedID, err = client.MultiAdd(ctx, &pb.MultiAddRequest{
-		Notes: []*pb.MultiAddRequest_Notes{
-			{
-				Title:   "title11",
-				Content: "ffdsjfdjf",
-			},
-			{
-				Title:   "title2",
-				Content: "sometext",
-			},
-			{
-				Title:   "title3",
-				Content: "more text",
-			},
-		},
+	res, err = client.AddMeal(ctx, &pb.AddMealRequest{
+		UserId: int64(127001),
+		Weight: float32(325),
 	})
 	if err != nil {
-		log.Printf("failed to add notes: %v\n", err.Error())
+		log.Printf("failed to add meal: %v\n", err.Error())
 	}
-	fmt.Printf("added %v IDs", addedID.GetResult().Count)
 
-	_, err = client.RemoveNote(ctx, &pb.RemoveNoteRequest{Id: int64(2)})
+	fmt.Println("meal with id", res.GetResult().GetId(), "added")
+
+	meals, err := client.GetList(ctx, &pb.GetListRequest{UserId: int64(127001)})
 	if err != nil {
-		log.Printf("failed to remove note: %v\n", err.Error())
+		log.Printf("failed to get all meals: %v\n", err.Error())
 	}
+	fmt.Printf("%v\n", meals.GetResults())
 
-	notes, err := client.GetList(ctx, &emptypb.Empty{})
-	if err != nil {
-		log.Printf("failed to get all notes: %v\n", err.Error())
-	}
-	fmt.Printf("%v\n", notes.GetResults())
-
-	_, err = client.UpdateNote(ctx, &pb.UpdateNoteRequest{
-		Id:      3,
-		Title:   "newtitle",
-		Content: "newcontent",
+	_, err = client.RemoveMeal(ctx, &pb.RemoveMealRequest{
+		Id:     2,
+		UserId: int64(127001),
 	})
 	if err != nil {
-		log.Printf("failed to update a note: %v\n", err.Error())
+		log.Printf("failed to remove meal: %v\n", err.Error())
 	}
 
-	note, err := client.GetNote(ctx, &pb.GetNoteRequest{
-		Id: 3,
+	_, err = client.UpdateMeal(ctx, &pb.UpdateMealRequest{
+		Id:       1,
+		UserId:   127001,
+		MealDate: "Mon Jan _2 15:04:05 2006",
+		Weight:   float32(330),
 	})
 	if err != nil {
-		log.Printf("failed to get note: %v\n", err.Error())
+		log.Printf("failed to update a meal: %v\n", err.Error())
 	}
-	fmt.Printf("%v\n", note)
+
+	meal, err := client.GetMeal(ctx, &pb.GetMealRequest{
+		Id:     1,
+		UserId: 127001,
+	})
+	if err != nil {
+		log.Printf("failed to get meal: %v\n", err.Error())
+	}
+	fmt.Printf("%v\n", meal)
 }

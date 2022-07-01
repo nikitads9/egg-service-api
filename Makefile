@@ -1,7 +1,7 @@
 .PHONY: generate
 generate:
 	protoc -I api/egg_v1 -I proto --go_out=pkg/egg_api --go_opt=paths=import --go-grpc_out=pkg/egg_api --go-grpc_opt=paths=import --grpc-gateway_out=pkg/egg_api --grpc-gateway_opt=logtostderr=true --grpc-gateway_opt=paths=import api/egg_v1/egg.proto
-	mv pkg/egg_api/github.com/nikitads9/note-service-api/pkg/note_api/* pkg/egg_api/
+	mv pkg/egg_api/github.com/nikitads9/egg-service-api/pkg/egg_api/* pkg/egg_api/
 	rm -r  ./pkg/egg_api/github.com
 
 
