@@ -27,7 +27,7 @@ service EggNutrition {
     }
     rpc GetList (GetListRequest) returns (GetListResponse){
         option (google.api.http) = {
-            get: "/meal/get-all-meals"
+            get: "/meal/get-all-meals/{userId}"
         };
     }
     rpc UpdateMeal (UpdateMealRequest) returns (google.protobuf.Empty){

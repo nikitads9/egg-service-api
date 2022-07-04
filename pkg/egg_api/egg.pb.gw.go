@@ -207,19 +207,25 @@ func local_request_EggNutrition_GetMeal_0(ctx context.Context, marshaler runtime
 
 }
 
-var (
-	filter_EggNutrition_GetList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_EggNutrition_GetList_0(ctx context.Context, marshaler runtime.Marshaler, client EggNutritionClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetListRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["userId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "userId")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetList_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.UserId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "userId", err)
 	}
 
 	msg, err := client.GetList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -231,11 +237,21 @@ func local_request_EggNutrition_GetList_0(ctx context.Context, marshaler runtime
 	var protoReq GetListRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["userId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "userId")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_EggNutrition_GetList_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.UserId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "userId", err)
 	}
 
 	msg, err := server.GetList(ctx, &protoReq)
@@ -362,7 +378,7 @@ func RegisterEggNutritionHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/GetList", runtime.WithHTTPPathPattern("/meal/get-all-meals"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.EggNutrition/GetList", runtime.WithHTTPPathPattern("/meal/get-all-meals/{userId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -512,7 +528,7 @@ func RegisterEggNutritionHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/GetList", runtime.WithHTTPPathPattern("/meal/get-all-meals"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/.EggNutrition/GetList", runtime.WithHTTPPathPattern("/meal/get-all-meals/{userId}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -559,7 +575,7 @@ var (
 
 	pattern_EggNutrition_GetMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"meal", "get", "userId", "id"}, ""))
 
-	pattern_EggNutrition_GetList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "get-all-meals"}, ""))
+	pattern_EggNutrition_GetList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"meal", "get-all-meals", "userId"}, ""))
 
 	pattern_EggNutrition_UpdateMeal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"meal", "update"}, ""))
 )

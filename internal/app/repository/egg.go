@@ -33,8 +33,8 @@ func NewEggNutritionRepository(db *sqlx.DB) IEggNutritionRepository {
 func (n *mealRepository) AddMeal(ctx context.Context, meal *model.MealInfo) (int64, error) {
 	builder := sq.Insert(table.MealsTable).
 		PlaceholderFormat(sq.Dollar).
-		Columns("user_id, meal_date, weight").
-		Values(meal.UserId, time.Now().Local().Format("Mon Jan _2 15:04:05 2006"), meal.Weight).
+		Columns("user_id, meal_date, weight, proteins, fat, carbo, nutrition").
+		Values(meal.UserId, time.Now().Local().Format("Mon Jan _2 15:04:05 2006"), meal.Weight, meal.Proteins, meal.Fat, meal.Carbo, meal.Nutrition).
 		Suffix("returning id")
 
 	query, args, err := builder.ToSql()
@@ -59,7 +59,7 @@ func (n *mealRepository) AddMeal(ctx context.Context, meal *model.MealInfo) (int
 }
 
 func (n *mealRepository) GetList(ctx context.Context, userId int64) ([]*model.MealInfo, error) {
-	builder := sq.Select("id, user_id, meal_date, weight").
+	builder := sq.Select("id, user_id, meal_date, weight, proteins, fat, nutrition").
 		PlaceholderFormat(sq.Dollar).
 		From(table.MealsTable).
 		Where(sq.Eq{"user_id": userId}).
@@ -81,7 +81,7 @@ func (n *mealRepository) GetList(ctx context.Context, userId int64) ([]*model.Me
 }
 
 func (n *mealRepository) GetMeal(ctx context.Context, id int64, userId int64) (*model.MealInfo, error) {
-	builder := sq.Select("id, user_id, meal_date, weight").
+	builder := sq.Select("id, user_id, meal_date, weight, proteins, fat, carbo, nutrition").
 		PlaceholderFormat(sq.Dollar).
 		From(table.MealsTable).
 		Where(sq.Eq{"id": id, "user_id": userId}).

@@ -27,7 +27,7 @@ const (
 )
 
 const (
-	host     = "192.168.137.1"
+	host     = "localhost"
 	dbPort   = "5444"
 	user     = "postgres"
 	password = "meals_pass"
