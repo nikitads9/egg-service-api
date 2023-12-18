@@ -37,5 +37,5 @@
  <p align="justify">
  Клиент был написан на Java, он связывается с API сервером с помощью HTTP 1.1 и парсит ответ в объект класса Meal, после чего выводит историю приготовленных блюд.
 </justify> <br /> 
- <img  src="./assets/test db.gifResults.jpg" width="100%">
+ <img  src="./assets/test db.gif" width="100%">
  <br /> 
